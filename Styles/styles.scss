@@ -1,1 +1,23 @@
-something a think header
+#candidateInput{
+    
+}
+header {
+    background-color: #1e1f38;
+    padding-top: 10%;
+    font-size: 60px;
+    font-family: 'Lilita One', cursive;
+    color: white;
+}
+#candidateInput{
+    padding-top: 20%;
+    display: flex;
+    justify-content: center;
+}
+#colorBar{
+    background: #ff5a3d;
+    
+    width: 100%; height: 25px;
+    border-style: solid;
+    border-color: #ff5a3d;
+    background-color: #ff5a3d;
+}
