@@ -7,7 +7,7 @@ header {
 }
 
 #candidateInput {
-  padding-top: 20%;
+  padding-top: 15%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -23,5 +23,15 @@ header {
   border-style: solid;
   border-color: #ff5a3d;
   background-color: #ff5a3d;
+}
+
+.container .jumbotron {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
 }
 /*# sourceMappingURL=styles.css.map */
