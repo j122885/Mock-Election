@@ -1,6 +1,4 @@
-#candidateInput{
-    
-}
+
 header {
     background-color: #1e1f38;
     padding-top: 10%;
@@ -9,7 +7,7 @@ header {
     color: white;
 }
 #candidateInput{
-    padding-top: 20%;
+    padding-top: 10%;
     display: flex;
     justify-content: center;
 }
@@ -21,9 +19,26 @@ header {
     border-color: #ff5a3d;
     background-color: #ff5a3d;
 }
-.container .jumbotron{ 
+ .jumbotron{ 
     display: flex;
-    align-items: center;
-    width: 100%;
+    align-content: center;
+    margin: 0px; 
+}
+#jumboContainer{
+    width: 55%;
+    
+}
+#outputContain, #determineWinner{
+    
+    text-align: center;
+    
+}
+#buttonHolder{
+    display: flex;
+    justify-content: left;
+    
+}
+#winnerBox-hidden{
+    opacity: 0;
 }
 
