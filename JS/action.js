@@ -4,7 +4,7 @@ var offices = new Array(250);
 var offCount = 0;//count for offices array
 var count = 0;//count for candidates array
 var tempCount = 0;//count for temp array in createCandidatebyList function
-
+var op = 0; //customize oppacity value for winnersHidden
 function Candidate(firstName, lastName, office, party, votes, won) { //Candidate object
     this.firstName = firstName;
     this.lastName = lastName;
@@ -24,6 +24,7 @@ function addCandidate() {//Creats and adds a new candidate
     var won = false;
     var a = new Candidate(firstName, lastName, office, party, vote, won);
     if (count < 250) {
+        if(a.firstName != "" && a.lastName!= "" && a.office != "" & a.party != "" & a.vote != "" ){
 
         if (hasCandidate(a) == false) {
             candidates[count] = a;
@@ -43,7 +44,8 @@ function addCandidate() {//Creats and adds a new candidate
 
 
         }
-        else alert("This candidate is already on the ballot.")
+        else alert("This candidate is already on the ballot.");
+    }
     }
 }
 function hasCandidate(candid) { //takes in some candidate and checks if that candidate is already on the ballot
@@ -59,7 +61,7 @@ function hasCandidate(candid) { //takes in some candidate and checks if that can
 function hasOffice(candid) {//takes in some candidate and checks if that type of office has already been added onto the array
     var hasOffice = false;
     for (var i = 0; i < offCount; i++) {
-        if (candid.office === candidates[i].office) {
+        if (candid.office === offices[i]) {
             hasOffice = true;
         }
     }
@@ -68,25 +70,27 @@ function hasOffice(candid) {//takes in some candidate and checks if that type of
 function winnersHidden() {
     createCandidateListByOffice();
     var box = document.getElementById("winnerBox-hidden");
-    var op = 0;
+    
     var id = setInterval(frame, 75);
     function frame() {
         if (op == 1) {
             clearInterval(id);
         } else {
-            op += 0.1;
+            op += 0.05;
             box.style.opacity = op;
 
         }
     }
 }
-function addvotes() {
+function addvotes() { //this upcoming feature will allow you to add votes after the race has been judged- finish this
     for (var i = 0; i < count; i++) {
 
     }
 }
-function createCandidateListByOffice() { //will likely be used after you press 
+function createCandidateListByOffice() { //will likely be used after you  
     console.log("apple");
+    console.log(offCount);
+    refreshWinners();
     for (var i = 0; i < offCount; i++) {//press the determine winner buton
         var temp = new Array(250);
         tempCount = 0;
@@ -123,3 +127,38 @@ function determineWinners(candid) {
         }
     }
 }
+function refreshWinners(){
+    for(var i = 0; i < count; i++){
+        candidates[i].won = false;
+    }
+}
+function validateForm() {
+    var a = document.forms["myForm"]["firstname"].value;
+    var b = document.forms["myForm"]["lastname"].value;
+    var c = document.forms["myForm"]["office"].value;
+    var d = document.forms["myForm"]["party"].value;
+    var e = document.forms["myForm"]["votes"].value;
+    
+   
+    if (a == "") {
+      alert("First name must be filled out");
+      return false;
+    }
+    if (b == "") {
+        alert("Last name must be filled out");
+        return false;
+      }
+      if (c == "") {
+        alert("Office must be filled out");
+        return false;
+      }
+      if (d == "") {
+        alert("Party must be filled out");
+        return false;
+      }
+      if (e == "") {
+        alert("Votes must be filled out");
+        return false;
+      }
+
+  }

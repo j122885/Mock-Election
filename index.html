@@ -23,31 +23,38 @@
             <h1 style="font-family: 'Lilita One', cursive;font-size:  20px;">Create your own mock election</h1>
         </div>
     </div>
-
+    <div class = "container" id="instructions">
+    <p> <b>
+         Instructions:<br>
+         Enter the information about candidates for your election.
+        <br> Multiple races go on at one time and there is no limit 
+        as to how many you can add. </b>
+    </p>
+    </div>
     <div id="candidateInput">
-        <form onsubmit="return false">
+        <form name = "myForm" onsubmit="return validateForm()">
             Please enter the candidate's first name:
-            <br><input class=" col-xs-3" type="text" value="" id="firstname"><br>
+            <br><input class=" col-xs-3" type="text" value="" id="firstname" name="firstname"><br><br>
             Please enter the candidate's last name.
-            <br><input class=" col-xs-3" type="text" value="" id="lastname"><br>
+            <br><input class=" col-xs-3" type="text" value="" id="lastname" name="lastname"><br><br>
             Please enter the candidate's office.
-            <br><input class="col-xs-3" type="text" value="" id="office"><br>
+            <br><input class="col-xs-3" type="text" value="" id="office" name="office"><br><br>
             Please enter the candidate's party.
-            <br><input class="col-xs-3" type="text" value="" id="party"><br>
+            <br><input class="col-xs-3" type="text" value="" id="party" name="party"><br><br>
             Initial number of votes:
-            <br><input class="col-xs-3" type="text" value="" id="votes"><br>
-            <input class="btn btn-dark" type="submit" value="submit" onclick="addCandidate()">
+            <br><input class="col-xs-3" type="text" value="" id="votes" name="votes"><br><br>
+            <input class="btn btn-dark" id = "sub" type="submit" value="submit" onclick="addCandidate()">
         </form>
     </div>
     <div class="container" id="jumboContainer">
         <div class="jumbotron , jumbotron-fluid">
             <div class="container" id="outputContain">
-                <p id="output">This box will display the candidates- center this</p>
+                <p id="output">This box will display the candidates</p>
             </div>
         </div>
         <div class = "container" id = "buttonHolder">
             
-            <br><button onclick = "winnersHidden()" type="button" class="btn btn-dark">Determine Winners</button>
+            <br><button onclick = "winnersHidden()" type="button" class="btn btn-dark ">Determine Winners</button>
         </div>
         <div class="jumbotron , jumbotron-fluid" id = "winnerBox-hidden"  >
             <div class="container" id="determineWinner">
