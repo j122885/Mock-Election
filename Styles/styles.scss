@@ -25,6 +25,13 @@ header {
     border-color: #ff5a3d;
     background-color: #ff5a3d;
 }
+#bottomBar{
+    background: #1e1f38;
+    width: 100%; height: 55px;
+    border-style: solid;
+    border-color:#1e1f38;
+    background-color:#1e1f38;
+}
  .jumbotron{ 
     display: flex;
     align-content: center;
@@ -60,6 +67,17 @@ form{
     border-style: groove;
     border-width: 2px;
     border-color: #E9ECEF;
+}
+input{
+    border-radius: 25px;
+    outline: none;
+    padding: 10px;
+    transition: .3s ease;
+    border: 3px solid gray;
+    width: 100%;
+}
+input:focus{
+    border: 3px solid #ff5a3d;
 }
 @media screen and (max-width: 600px) {
     #sub{
