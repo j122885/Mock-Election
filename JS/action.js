@@ -14,8 +14,8 @@ function Candidate(firstName, lastName, office, party, votes, won) { //Candidate
     this.won = won;
 }
 
-function addCandidate() {//Creats and adds a new candidate
-
+    document.getElementById("addCandidate").addEventListener("submit", function (event) {//Creats and adds a new candidate
+    event.preventDefault();
     var firstName = document.getElementById("firstname").value;
     var lastName = document.getElementById("lastname").value;
     var office = document.getElementById("office").value;
@@ -47,7 +47,7 @@ function addCandidate() {//Creats and adds a new candidate
         else alert("This candidate is already on the ballot.");
     }
     }
-}
+});
 function hasCandidate(candid) { //takes in some candidate and checks if that candidate is already on the ballot
     var hasThisCandidate = false;
     for (var i = 0; i < count; i++) {
