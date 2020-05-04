@@ -5,48 +5,54 @@ var offCount = 0;//count for offices array
 var count = 0;//count for candidates array
 var tempCount = 0;//count for temp array in createCandidatebyList function
 var op = 0; //customize oppacity value for winnersHidden
-function Candidate(firstName, lastName, office, party, votes, won) { //Candidate object
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.office = office;
-    this.party = party;
-    this.votes = votes;
-    this.won = won;
-}
+var tripped = false;// to keep the error message from showing twice - turns true if data validator says false
 
+    function Candidate(firstName, lastName, office, party, votes, won) { //Candidate object
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.office = office;
+        this.party = party;
+        this.votes = votes;
+        this.won = won;
+    }
+    
     document.getElementById("addCandidate").addEventListener("submit", function (event) {//Creats and adds a new candidate
     event.preventDefault();
-    var firstName = document.getElementById("firstname").value;
-    var lastName = document.getElementById("lastname").value;
-    var office = document.getElementById("office").value;
-    var party = document.getElementById("party").value;
-    var vote = document.getElementById("votes").value;
-    var won = false;
-    var a = new Candidate(firstName, lastName, office, party, vote, won);
-    if (count < 250) {
-        if(a.firstName != "" && a.lastName!= "" && a.office != "" & a.party != "" & a.vote != "" ){
 
-        if (hasCandidate(a) == false) {
-            candidates[count] = a;
-            console.log(candidates[count]);
-            count++;
-            console.log(count);
-            if (hasOffice(a) == false) {
-                offices[offCount] = a.office;
-                offCount++;
-                console.log(offices[0]);
+    if(tripped == false){
+        
+        var firstName = document.getElementById("firstname").value;
+        var lastName = document.getElementById("lastname").value;
+        var office = document.getElementById("office").value;
+        var party = document.getElementById("party").value;
+        var vote = Number( document.getElementById("votes").value);
+        var won = false;
+        var a = new Candidate(firstName, lastName, office, party, vote, won);
+        if (count < 250) {
+            if(a.firstName != "" && a.lastName!= "" && a.office != "" & a.party != "" & a.vote != "" ){
+
+            if (hasCandidate(a) == false) {
+                candidates[count] = a;
+                console.log(candidates[count]);
+                count++;
+                console.log(count);
+                if (hasOffice(a) == false) {
+                    offices[offCount] = a.office;
+                    offCount++;
+                    console.log(offices[0]);
+                }
+                var out = "Name: " + a.firstName + " " + a.lastName + "   Office: " + a.office + "   Party: " + a.party + " # of votes: " + a.votes;
+                var node = document.createElement("P");
+                var textnode = document.createTextNode(out);
+                node.appendChild(textnode);
+                document.getElementById("output").appendChild(node);
+
+
             }
-            var out = "Name: " + a.firstName + " " + a.lastName + "   Office: " + a.office + "   Party: " + a.party + " # of votes: " + a.votes;
-            var node = document.createElement("P");
-            var textnode = document.createTextNode(out);
-            node.appendChild(textnode);
-            document.getElementById("output").appendChild(node);
-
-
+            else alert("This candidate is already on the ballot.");
         }
-        else alert("This candidate is already on the ballot.");
     }
-    }
+} else tripped = false;
 });
 function hasCandidate(candid) { //takes in some candidate and checks if that candidate is already on the ballot
     var hasThisCandidate = false;
@@ -91,6 +97,7 @@ function createCandidateListByOffice() { //will likely be used after you
     console.log("apple");
     console.log(offCount);
     refreshWinners();
+    clearWinnersBox();
     for (var i = 0; i < offCount; i++) {//press the determine winner buton
         var temp = new Array(250);
         tempCount = 0;
@@ -111,7 +118,7 @@ function createCandidateListByOffice() { //will likely be used after you
 function determineWinners(candid) {
     var highest = 0;
     for(var i = 0; i <tempCount; i++){
-        if(candid[i].votes > highest){
+        if( candid[i].votes > highest){
             highest = candid[i].votes;
         }
     }
@@ -132,33 +139,46 @@ function refreshWinners(){
         candidates[i].won = false;
     }
 }
+
+function clearWinnersBox(){
+  var list =  document.getElementById("winners");
+  for(var i = 1; i <list.childNodes.length; i++){
+    list.removeChild(list.childNodes[i]);
+  }
+}
 function validateForm() {
     var a = document.forms["myForm"]["firstname"].value;
     var b = document.forms["myForm"]["lastname"].value;
     var c = document.forms["myForm"]["office"].value;
     var d = document.forms["myForm"]["party"].value;
-    var e = document.forms["myForm"]["votes"].value;
+    var e = Number(document.forms["myForm"]["votes"].value);
     
    
-    if (a == "") {
+    if (a == "" ) {
       alert("First name must be filled out");
+      tripped = true;
       return false;
     }
-    if (b == "") {
+    if (b == "" ) {
         alert("Last name must be filled out");
+        tripped = true;
         return false;
       }
-      if (c == "") {
+      if (c == "" ) {
         alert("Office must be filled out");
+        tripped = true;
         return false;
       }
       if (d == "") {
         alert("Party must be filled out");
+        tripped = true;
         return false;
       }
-      if (e == "") {
-        alert("Votes must be filled out");
+      if (isNaN(e)) {
+        alert("Votes must be filled out and must be a number");
+        tripped = true;
         return false;
       }
+      return true;
 
   }
