@@ -1,6 +1,6 @@
 var firstName, lastName, office, party, vots, won;
-var candidates = new Array(250);
-var offices = new Array(250);
+var candidates = new Array();
+var offices = new Array();
 var offCount = 0;//count for offices array
 var count = 0;//count for candidates array
 var tempCount = 0;//count for temp array in createCandidatebyList function
@@ -99,7 +99,7 @@ function createCandidateListByOffice() { //will likely be used after you
     refreshWinners();
     clearWinnersBox();
     for (var i = 0; i < offCount; i++) {//press the determine winner buton
-        var temp = new Array(250);
+        var temp = new Array();
         tempCount = 0;
         
         for (var j = 0; j < count; j++) {
@@ -115,22 +115,43 @@ function createCandidateListByOffice() { //will likely be used after you
         
     }
 }
-function determineWinners(candid) {
+function determineWinners(candid) { //takes in candidate array of same offices from createCandidateListByOffice
     var highest = 0;
     for(var i = 0; i <tempCount; i++){
         if( candid[i].votes > highest){
             highest = candid[i].votes;
         }
     }
+    
+
+    var tieCounter = 0;
+    var tie = false;
     for (var j = 0; j < count; j++) {
         if(candidates[j].votes == highest && candidates[j].office === candid[0].office){
-            candidates[j].won = true;
-            var out = candidates[j].firstName + " " + candidates[j].lastName
-            var node = document.createElement("P");
-            var textnode = document.createTextNode(out);
-            node.appendChild(textnode);
-            document.getElementById("winners").appendChild(node);
-            console.log(out);
+            tieCounter++;
+        } 
+    }
+
+    if(tieCounter > 1){
+        var out = "There is a tie for the office of " + candid[0].office;
+        var node = document.createElement("P");
+        var textnode = document.createTextNode(out);
+        node.appendChild(textnode);
+        document.getElementById("winners").appendChild(node);
+        tie = true;
+    }
+
+    if(tie == false){
+        for (var k = 0; k < count; k++) {
+            if(candidates[k].votes == highest && candidates[k].office === candid[0].office){
+                    candidates[k].won = true;
+                    var out = "For the office of " + candidates[k].office + ": " + candidates[k].firstName + " " + candidates[k].lastName;
+                    var node = document.createElement("P");
+                    var textnode = document.createTextNode(out);
+                    node.appendChild(textnode);
+                    document.getElementById("winners").appendChild(node);
+                    console.log(out);
+            }
         }
     }
 }
@@ -142,8 +163,8 @@ function refreshWinners(){
 
 function clearWinnersBox(){
   var list =  document.getElementById("winners");
-  for(var i = 1; i <list.childNodes.length; i++){
-    list.removeChild(list.childNodes[i]);
+  while(list.childNodes.length > 1){
+    list.removeChild(list.childNodes[list.childNodes.length-1]);
   }
 }
 function validateForm() {
